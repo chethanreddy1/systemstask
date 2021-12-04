@@ -11,7 +11,7 @@ ADDR = (SERVER, PORT)
 JJ = "cncncn"
 DISCONNECTMESSAGE= 'BYE!3808fuhdh32u'
 lcon= []
-
+laddr= []
 server= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
 
@@ -36,6 +36,13 @@ def handle_client(conn, addr):
                sendclient(f"{addr} has left the chat")
                print(f"{addr} has left the chat")
            else:
+             if msg.startswith("/private"):
+              print(msg)
+              paddr= (msg[9:21], int(msg[23:28]))
+              print(paddr)
+              index = laddr.index(paddr)
+              lcon[index].send(msg[30:].encode(FORMAT))
+             else:
                sendclient(f'{addr}: {msg}')
                print(f'{addr}: {msg}')
            
@@ -58,6 +65,9 @@ def start():
            thread.start()
            conn.send(yes.encode(FORMAT))
            lcon.append(conn)
+           laddr.append(addr)
+           print(addr)
+
            print(f'there are {threading.active_count()-1}')
         else:
             no='qhskdnrjissskfn31729312456'
