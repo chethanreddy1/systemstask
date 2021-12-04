@@ -10,7 +10,7 @@ FORMAT = 'utf-8'
 DISCONNECTMESSAGE = 'BYE!3808fuhdh32u'
 SERVER = '192.168.56.1'
 ADDR= (SERVER, PORT)
-conneted=True
+connected=True
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
 
@@ -37,15 +37,13 @@ else:
  thread.start()
 
 
- while conneted:
+ while connected:
 
     msg= input()
     
     if msg.startswith("/leave"):
         send(DISCONNECTMESSAGE)
         print("disconnected")
-        conneted= False
+        connected = False
     else:
         send(msg)
-   
-
